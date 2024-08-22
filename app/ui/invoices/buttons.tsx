@@ -1,3 +1,5 @@
+"use client"
+import { deleteInvoice } from '@/app/lib/actions';
 import { PencilIcon, PlusIcon, TrashIcon } from '@heroicons/react/24/outline';
 import Link from 'next/link';
 
@@ -27,10 +29,16 @@ export function UpdateInvoice({ id }: { id: string }) {
 export function DeleteInvoice({ id }: { id: string }) {
   return (
     <>
-      <button className="rounded-md border p-2 hover:bg-gray-100">
+      <button className="rounded-md border p-2 hover:bg-gray-100" onClick={async () => {
+        const data = await deleteInvoice(id)
+        if(data == 0 ) return // marcar error por que no hubo eliminacion
+        console.log(data);
+         
+        
+      }}>
         <span className="sr-only">Delete</span>
         <TrashIcon className="w-5" />
       </button>
-    </>
+    </> 
   );
 }
